@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "react-slideshow-image/dist/styles.css";
+
+body {
+  @apply dark:bg-black
+}
+
+
+/******************************************* 
+  Rich Text Styles
+*******************************************/ 
+
+/* Headers */
+.rich-text h1 {
+  @apply text-4xl font-bold mb-4 text-violet-400;
+}
+
+.rich-text h2 {
+  @apply text-3xl font-bold mb-4 text-violet-400;
+}
+
+.rich-text h3 {
+  @apply text-2xl font-bold mb-4 text-violet-400;
+}
+
+.rich-text h4 {
+  @apply text-xl font-bold mb-4 text-violet-400;
+}
+
+.rich-text h5 {
+  @apply text-lg font-bold mb-4 text-violet-400;
+}
+
+.rich-text h6 {
+  @apply text-base font-bold mb-4 text-violet-200;
+}
+
+/* Horizontal rules */
+.rich-text hr {
+  @apply border-gray-300 my-8;
+}
+
+.rich-text a {
+  @apply text-violet-400 underline;
+}
+
+/* Typographic replacements */
+.rich-text p {
+  @apply mb-4;
+}
+
+/* Emphasis */
+.rich-text strong {
+  @apply font-bold;
+}
+
+.rich-text em {
+  @apply italic;
+}
+
+.rich-text del {
+  @apply line-through;
+}
+
+/* Blockquotes */
+.rich-text blockquote {
+  @apply border-l-4 border-gray-400 pl-4 py-2 mb-4;
+}
+
+/* Lists */
+.rich-text ul {
+  @apply list-disc pl-4 mb-4;
+}
+
+.rich-text ol {
+  @apply list-decimal pl-4 mb-4;
+}
+
+.rich-text li {
+  @apply mb-2;
+}
+
+.rich-text li > ul {
+  @apply list-disc pl-4 mb-2;
+}
+
+.rich-text li > ol {
+  @apply list-decimal pl-4 mb-2;
+}
+
+/* Code blocks */
+.rich-text pre {
+  @apply font-mono bg-gray-900 text-gray-100 rounded p-4  my-6;
+}
+
+.rich-text code {
+  @apply font-mono bg-gray-900 text-gray-100 rounded px-2 py-1;
+}
+
+/* Tables */
+.rich-text table {
+  @apply w-full border-collapse border-gray-300 my-6;
+}
+
+.rich-text th {
+  @apply bg-gray-900 text-left py-2 px-4 font-semibold border-b border-gray-300;
+}
+
+.rich-text td {
+  @apply py-2 px-4 border-b border-gray-300;
+}
+
+/* Images */
+.rich-text img {
+  @apply w-full object-cover rounded-xl my-6;
+}
+
+/* Custom containers */
+.rich-text .warning {
+  @apply bg-yellow-100 border-yellow-500 text-yellow-700 px-4 py-2 rounded-lg mb-4;
+}
+
+
+/******************************************* 
+  React Slideshow Styles
+*******************************************/   
+
+.react-slideshow-container [aria-label="Previous Slide"] {
+  margin-left: 1rem;
+}
+
+.react-slideshow-container [aria-label="Next Slide"] {
+  margin-right: 1rem;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 24 9.8% 10%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 60 4.8% 95.9%;
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 20 14.3% 4.1%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;}
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 60 9.1% 97.8%;
+    --primary-foreground: 24 9.8% 10%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 24 5.7% 82.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;}}
+
+@layer base {
+  * {
+    @apply border-border;}
+  body {
+    @apply bg-background text-foreground;}}
