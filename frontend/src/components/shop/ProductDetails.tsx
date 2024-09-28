@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
-import { getStrapiMedia } from "@/app/[lang]/utils/api-helpers";
+import { getStrapiMedia } from "@/app/utils/api-helpers";
 import { ProductCarousel } from "./ProductCarousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -43,37 +43,53 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   // Custom components for markdown rendering
   const customComponents = {
     p: ({ children }: { children: React.ReactNode }) => (
-      <p className="mb-4">{children}</p>
+      <p className="mb-4 leading-relaxed text-gray-700">{children}</p>
     ),
     ul: ({ children }: { children: React.ReactNode }) => (
-      <ul className="list-disc pl-5 mb-4">{children}</ul>
+      <ul className="pl-5 mb-4 list-disc">{children}</ul>
     ),
     ol: ({ children }: { children: React.ReactNode }) => (
-      <ol className="list-decimal pl-5 mb-4">{children}</ol>
+      <ol className="pl-5 mb-4 list-decimal">{children}</ol>
     ),
     li: ({ children }: { children: React.ReactNode }) => (
       <li className="mb-2">{children}</li>
     ),
     h1: ({ children }: { children: React.ReactNode }) => (
-      <h1 className="text-2xl font-bold mb-4">{children}</h1>
+      <h1 className="mb-4 text-2xl font-bold">{children}</h1>
     ),
     h2: ({ children }: { children: React.ReactNode }) => (
-      <h2 className="text-xl font-semibold mb-3">{children}</h2>
+      <h2 className="mb-3 text-xl font-semibold">{children}</h2>
     ),
     h3: ({ children }: { children: React.ReactNode }) => (
-      <h3 className="text-lg font-semibold mb-2">{children}</h3>
+      <h3 className="mb-2 text-lg font-semibold">{children}</h3>
     ),
   };
 
+  // Function to extract text from description
+  const extractDescription = (description: any): string => {
+    if (typeof description === "string") return description;
+    if (Array.isArray(description)) {
+      return description
+        .map((block) => {
+          if (block.type === "paragraph") {
+            return block.children.map((child: any) => child.text).join(" ");
+          }
+          return "";
+        })
+        .join("\n\n");
+    }
+    return "";
+  };
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
       <div className="flex justify-center">
         {/* <ImageSliderNoAlt data={product.attributes.images.data} /> */}
         <ProductCarousel data={product.attributes.images.data} />
       </div>
       <div>
-        <h1 className="text-3xl font-bold mb-4">{product.attributes.name}</h1>
-        <p className="text-2xl font-semibold mb-4">
+        <h1 className="mb-4 text-3xl font-bold">{product.attributes.name}</h1>
+        <p className="mb-4 text-2xl font-semibold">
           ${product.attributes.price.toFixed(2)}
         </p>
         <div className="mb-4">
@@ -83,9 +99,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           >
             Quantity:
           </label>
-          <div className="flex items-center mt-1 gap-2">
+          <div className="flex gap-2 items-center mt-1">
             <button
-              className="p-1 text-gray-600 hover:text-gray-800 transition-colors"
+              className="p-1 text-gray-600 transition-colors hover:text-gray-800"
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
             >
               <FontAwesomeIcon icon={faMinus} />
@@ -100,7 +116,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               className="w-16 text-center border-b border-gray-300"
             />
             <button
-              className="p-1 text-gray-600 hover:text-gray-800 transition-colors"
+              className="p-1 text-gray-600 transition-colors hover:text-gray-800"
               onClick={() => setQuantity(quantity + 1)}
             >
               <FontAwesomeIcon icon={faPlus} />
@@ -108,15 +124,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           </div>
         </div>
         <button
-          className="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+          className="px-4 py-2 w-full text-white bg-black rounded transition-colors hover:bg-gray-800"
           onClick={handleAddToCart}
         >
           Add to cart →
         </button>
         <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-2">Description</h2>
+          <h2 className="mb-2 text-xl font-semibold">Description</h2>
           <ReactMarkdown components={customComponents as any}>
-            {product.attributes.description}
+            {extractDescription(product.attributes.description)}
           </ReactMarkdown>
         </div>
       </div>

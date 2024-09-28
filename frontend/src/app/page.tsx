@@ -1,4 +1,4 @@
-import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
+import { fetchAPI } from "@/app/utils/fetch-api";
 import { getStrapiMedia } from "./utils/api-helpers";
 import Link from "next/link";
 import CartSheet from "@/components/shop/CartSheet";
@@ -7,6 +7,7 @@ import Image from "next/image";
 const getData = async () => {
   try {
     const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
+    console.log("token", token);
     const path = `/products`;
     const urlParamsObject = {
       sort: { createdAt: "desc" },
@@ -20,11 +21,12 @@ const getData = async () => {
     };
     const options = { headers: { Authorization: `Bearer ${token}` } };
     const responseData = await fetchAPI(path, urlParamsObject, options);
-
+    console.log(responseData, "responseData");
     return {
       data: responseData.data,
     };
   } catch (error) {
+    console.log(error, "error");
     console.error(error);
     return {
       data: [],
@@ -35,7 +37,7 @@ const getData = async () => {
 function ProductCard({ product }: { product: any }) {
   console.log(product.attributes.images.data[0].attributes.url, "product");
   return (
-    <Link href={`/shop/${product.attributes.slug}`}>
+    <Link href={`/${product.attributes.slug}`}>
       <div className="flex flex-col cursor-pointer">
         <div className="overflow-hidden relative mb-2 bg-gray-100 rounded-lg aspect-square">
           <img

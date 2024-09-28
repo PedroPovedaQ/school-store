@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import Image from "next/image";
-import { getStrapiMedia } from "@/app/[lang]/utils/api-helpers";
+import { getStrapiMedia } from "@/app/utils/api-helpers";
 import Autoplay from "embla-carousel-autoplay";
 
 import { Card, CardContent } from "@/components/ui/card";
