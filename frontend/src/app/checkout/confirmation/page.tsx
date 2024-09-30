@@ -21,7 +21,7 @@ export default function ConfirmationPage() {
     return <div>Loading...</div>;
   }
 
-  const { formData, items, subtotal, total } = orderDetails;
+  const { formData, items, total } = orderDetails;
 
   return (
     <div className="min-h-screen bg-white">
@@ -85,7 +85,7 @@ export default function ConfirmationPage() {
   );
 }
 
-export const metadata = {
-  title: "Order Confirmation - Oak Ridge Pioneer Hero Store",
-  description: "Order Confirmation - Oak Ridge Pioneer Hero Store",
-};
+// export const metadata = {
+//   title: "Order Confirmation - Oak Ridge Pioneer Hero Store",
+//   description: "Order Confirmation - Oak Ridge Pioneer Hero Store",
+// };
