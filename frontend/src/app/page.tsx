@@ -104,6 +104,6 @@ export default async function Home() {
 }
 
 export const metadata = {
-  title: "Shop - School ",
-  description: "Browse our collection of products",
+  title: "Oak Ridge Pioneer Hero Store",
+  description: "Oak Ridge Pioneer Hero Store",
 };

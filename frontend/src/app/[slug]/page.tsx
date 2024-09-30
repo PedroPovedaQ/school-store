@@ -61,7 +61,8 @@ export async function generateMetadata({
 }) {
   const { data: product } = await getData(params.slug);
   return {
-    title: `${product?.attributes.name || "Product"} - School  Shop`,
-    description: product?.attributes.description || "Product description",
+    title: `${product?.attributes.name || "Oak Ridge Pioneer Hero Store"}`,
+    description:
+      product?.attributes.description || "Oak Ridge Pioneer Hero Store",
   };
 }

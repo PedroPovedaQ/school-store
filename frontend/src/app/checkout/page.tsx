@@ -215,3 +215,8 @@ export default function CheckoutPage() {
     </div>
   );
 }
+
+export const metadata = {
+  title: "Checkout - Oak Ridge Pioneer Hero Store",
+  description: "Checkout - Oak Ridge Pioneer Hero Store",
+};
