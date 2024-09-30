@@ -46,7 +46,7 @@ function ProductCard({ product }: { product: any }) {
               product.attributes.images.data[0].attributes.url
             )}
             alt={product.attributes.name}
-            className="object-cover w-full h-full transition-opacity duration-300"
+            className="object-contain w-full h-full transition-opacity duration-300"
           />
           {product.attributes.images.data.length && (
             <img
@@ -56,7 +56,7 @@ function ProductCard({ product }: { product: any }) {
                   : product.attributes.images.data[0].attributes.url
               )}
               alt={`${product.attributes.name} - Hover`}
-              className="object-cover absolute inset-0 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-100"
+              className="object-contain absolute inset-0 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-100"
             />
           )}
         </div>
