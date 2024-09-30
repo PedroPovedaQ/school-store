@@ -19,6 +19,7 @@ import {
   faMinus,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
+import { getStrapiMedia } from "@/utils/api-helpers";
 
 const CartSheet = () => {
   const { cart, removeFromCart, updateQuantity } = useCart();
@@ -52,7 +53,7 @@ const CartSheet = () => {
               {cart.map((item) => (
                 <div key={item.id} className="flex items-center mb-4">
                   <Image
-                    src={item.image}
+                    src={getStrapiMedia(item.image)}
                     alt={item.name}
                     width={50}
                     height={50}

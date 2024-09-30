@@ -45,7 +45,7 @@ export function ProductCarousel({ data }: ProductCarouselProps) {
                 <Card>
                   <CardContent className="flex justify-center items-center p-6 aspect-square">
                     {imageUrl && (
-                      <Image
+                      <img
                         className="object-cover w-full h-full rounded-lg"
                         src={imageUrl}
                         alt={

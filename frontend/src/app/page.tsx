@@ -91,7 +91,7 @@ export default async function Home() {
             <CartSheet />
           </div>
         </header>
-        <div className="container p-8">
+        <div className="container p-8 w-full max-w-full">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {data.map((product: any) => (
               <ProductCard key={product.id} product={product} />
