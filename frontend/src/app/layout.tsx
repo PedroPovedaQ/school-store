@@ -8,33 +8,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { FALLBACK_SEO } from "@/app/utils/constants";
 import { Toaster } from "react-hot-toast";
-
-async function getGlobal(lang: string): Promise<any> {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
-
-  if (!token)
-    throw new Error("The Strapi API Token environment variable is not set.");
-
-  const path = `/global`;
-  const options = { headers: { Authorization: `Bearer ${token}` } };
-
-  const urlParamsObject = {
-    populate: [
-      "metadata.shareImage",
-      "favicon",
-      "notificationBanner.link",
-      "navbar.links",
-      "navbar.navbarLogo.logoImg",
-      "footer.footerLogo.logoImg",
-      "footer.menuLinks",
-      "footer.legalLinks",
-      "footer.socialLinks",
-      "footer.categories",
-    ],
-    locale: lang,
-  };
-  return await fetchAPI(path, urlParamsObject, options);
-}
+import { getGlobal } from "@/utils/api-helpers";
 
 // export async function generateMetadata({
 //   params,

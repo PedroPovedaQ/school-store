@@ -1,46 +1,40 @@
 'use server'
 
-import { Resend } from 'resend';
+import { getGlobal } from '@/utils/api-helpers';
+import * as SibApiV3Sdk from 'sib-api-v3-typescript';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
+apiInstance.setApiKey(SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY || '');
+
+
 
 export async function sendOrderConfirmation(email: string, cart: any[], subtotal: number, shipping: number, total: number) {
   const emailHtml = `
-    <h1>Order Confirmation</h1>
-    <p>Thank you for your order!</p>
-    <h2>Order Details:</h2>
-    <ul>
+    <h1 style="color: black; margin: 0; padding: 0;">Oak Ridge Pioneer Hero Store - Order Confirmation</h1>
+    <p style="color: black; margin: 0; padding: 0;">Thank you for your order!</p>
+    <h2 style="color: green; margin: 0; padding: 0;">Order Details:</h2>
+    <ul style="color: black; margin: 0; padding: 0 0 0 20px;">
       ${cart
         .map(
           (item: any) => `
-        <li><strong>${item.name}</strong> - Quantity: ${item.quantity} - Price: $${(
-            item.price * item.quantity
-          ).toFixed(2)}</li>
+        <li style="margin: 0; padding: 0;"><strong>${item.name}</strong> - Quantity: ${item.quantity} - Price: ${item.price * item.quantity} Points</li>
       `
         )
         .join("")}
     </ul>
-    <p>Subtotal: $${subtotal.toFixed(2)}</p>
-    <p>Shipping: $${shipping.toFixed(2)}</p>
-    <p>Total: $${total.toFixed(2)}</p>
-    <p>Expect to receive your order within 3-5 business days.</p>
-    <p>For any questions, please email <a href="mailto:School.co@gmail.com">School.co@gmail.com</a></p>
+    <p style="color: black; margin: 0; padding: 0;">Total: ${total} Points</p>
+    <p style="color: black; margin: 0; padding: 0;">Expect to receive your order within 3-5 business days.</p>
+    <p style="color: black; margin: 0; padding: 0;">For any questions, please email <a href="mailto:erin.mantor@ocps.net">erin.mantor@ocps.net</a></p>
   `;
 
+  const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
+  sendSmtpEmail.to = [{ email: email }];
+  sendSmtpEmail.sender = { email: "erin.mantor@ocps.net", name: "Oak Ridge Pioneer Hero Store" };
+  sendSmtpEmail.subject = "Oak Ridge Pioneer Hero Store - Order Confirmation";
+  sendSmtpEmail.htmlContent = emailHtml;
+
   try {
-    const { data, error } = await resend.emails.send({
-      from: "School  <School.co@gmail.com>",
-      to: email,
-      bcc: "pedropovedaq@gmail.com",
-      subject: "Order Confirmation - School ",
-      html: emailHtml,
-    });
-
-    if (error) {
-      console.error("Error sending email:", error);
-      throw new Error('Error sending email');
-    }
-
+    const data = await apiInstance.sendTransacEmail(sendSmtpEmail);
     console.log("Email sent successfully:", data);
     return { success: true, message: 'Email sent successfully' };
   } catch (error) {
@@ -52,47 +46,91 @@ export async function sendOrderConfirmation(email: string, cart: any[], subtotal
 export async function sendOrderNotification(
   formData: any,
   cart: any[],
-  subtotal: number,
-  shipping: number,
   total: number
 ) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
+  console.log("sendOrderNotification called with formData:", formData);
+  const { email, first_name, last_name } = formData;
 
-  const { email, first_name, last_name, company, address, apartment, city, state, zip_code } = formData;
+  // Fetch the global config to get the email list
+  const globalConfig = await getGlobal('en'); // Assuming 'en' for English, adjust if needed
+  const notificationEmails = globalConfig.data.attributes.notificationEmails || [];
 
   const itemsList = cart.map((item: any) => 
-    `${item.name} - Quantity: ${item.quantity} - Price: $${item.price.toFixed(2)}`
-  ).join('\n');
-
-  const fullAddress = `${address}${apartment ? ', ' + apartment : ''}, ${city}, ${state} ${zip_code}`;
+    `<div style="margin: 0; padding: 0;"><strong>${item.name}</strong> - Quantity: ${item.quantity} - Price: ${item.price * item.quantity} Points</div>`
+  )
+  .join('');
 
   const emailContent = `
-    New Order Notification
-
-    Customer Details:
-    Name: ${first_name} ${last_name}
+    <h1 style="color: black; margin: 0; padding: 0;">Oak Ridge Pioneer Hero Store - New Order Notification</h1>
+    <h2 style="color: green; margin: 0; padding: 0;">Customer Details:</h2>
+    <p style="color: black; margin: 0; padding: 0;">
+    Name: ${first_name} ${last_name}<br>
     Email: ${email}
-    Company: ${company || 'N/A'}
-    Address: ${fullAddress}
-
-    Order Details:
+    </p>
+    <h2 style="color: green; margin: 0; padding: 0;">Order Details:</h2>
+    <div style="color: black; margin: 0; padding: 0;">
     ${itemsList}
-
-    Subtotal: $${subtotal.toFixed(2)}
-    Shipping: $${shipping.toFixed(2)}
-    Total: $${total.toFixed(2)}
+    </div>
+    <h2 style="color: green; margin: 0; padding: 0;">Total: ${total} Points</h2>
   `;
 
-  try {
-    const data = await resend.emails.send({
-      from: "School  <School.co@gmail.com>",
-      to: ["pedropovedaq@gmail.com", "School.co@gmail.com"],
-      subject: "New Order Notification",
-      text: emailContent,
-    });
+  const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
+  sendSmtpEmail.to = notificationEmails.map((email: { email: string }) => ({ email: email.email }));
+  sendSmtpEmail.sender = { email: "erin.mantor@ocps.net", name: "Oak Ridge Pioneer Hero Store" };
+  sendSmtpEmail.subject = "Oak Ridge Pioneer Hero Store - New Order Notification";
+  sendSmtpEmail.textContent = emailContent;
 
+  try {
+    console.log("Sending email to:", sendSmtpEmail.to);
+    const data = await apiInstance.sendTransacEmail(sendSmtpEmail);
+    console.log("Email sent successfully:", data);
     return { success: true, data };
   } catch (error) {
     return { success: false, error };
+  }
+}
+
+export async function createOrder(
+  formData: {
+    email: string;
+    first_name: string;
+    last_name: string;
+    // ... other form fields ...
+  },
+  cart: any[],
+  total: number
+) {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
+      },
+      body: JSON.stringify({
+        data: {
+          email: formData.email,
+          first_name: formData.first_name,
+          last_name: formData.last_name,
+          total,
+          cart_items: cart.map(item => ({
+            id: item.id,
+            quantity: item.quantity
+          })),
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error.message || 'Failed to create order in Strapi');
+    }
+
+    const data = await response.json();
+    console.log("Order created successfully:", data);
+    return data.data;
+  } catch (error) {
+    console.error("Error creating order:", error);
+    throw error;
   }
 }

@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_textlist_emails",
+  "info": {
+    "displayName": "Emails",
+    "icon": "envelop",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "email": {
+      "type": "email"
+    }
+  }
+}

@@ -96,7 +96,7 @@ export default function Footer({
           <div className="flex flex-col items-center space-y-4">
             <Logo src={logoUrl} imgWidth={100} imgHeight={100} />
             <p className="text-2xl font-bold text-center font-cormorant text-mj-gold !mt-1">
-              Marijuana Meditations
+              Hero Store
             </p>
           </div>
 
@@ -131,8 +131,7 @@ export default function Footer({
         {/* Copyright and Legal Links */}
         <div className="flex flex-col items-center pt-6">
           <span className="text-base text-center mb-3 text-white">
-            ©{new Date().getFullYear()} Marijuana Meditations. All rights
-            reserved
+            ©{new Date().getFullYear()} Hero Store. All rights reserved
           </span>
           <ul className="flex flex-wrap justify-center space-x-6">
             {legalLinks.map((link: FooterLink) => (

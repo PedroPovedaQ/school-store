@@ -1,20 +1,26 @@
 import qs from "qs";
 import { getStrapiURL } from "./api-helpers";
 
+interface FetchOptions extends RequestInit {
+  headers?: Record<string, string>;
+}
+
 export async function fetchAPI(
   path: string,
   urlParamsObject = {},
-  options = {}
+  options: FetchOptions = {}
 ) {
   try {
     // Merge default and user options
     const mergedOptions = {
-      next: { revalidate: 60 },
+      next: { revalidate: 0 },
       headers: {
         "Content-Type": "application/json",
+        ...options?.headers,
       },
       ...options,
     };
+    console.log("mergedOptions", mergedOptions);
 
     // Build request URL
     const queryString = qs.stringify(urlParamsObject);
@@ -26,9 +32,10 @@ export async function fetchAPI(
     const response = await fetch(requestUrl, mergedOptions);
     const data = await response.json();
     return data;
-    
   } catch (error) {
     console.error(error);
-    throw new Error(`Please check if your server is running and you set all the required tokens.`);
+    throw new Error(
+      `Please check if your server is running and you set all the required tokens.`
+    );
   }
 }

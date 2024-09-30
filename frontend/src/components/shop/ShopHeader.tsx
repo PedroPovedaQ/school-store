@@ -12,11 +12,11 @@ function ShopHeader(props: Props) {
   const { showCart } = props;
 
   return (
-    <header className="bg-gray-100 py-4 flex align-middle">
-      <div className="container mx-auto px-4 flex justify-between items-center">
+    <header className="flex py-4 align-middle bg-gray-100">
+      <div className="container flex justify-between items-center px-4 mx-auto">
         <Link
-          href="/shop"
-          className="text-black hover:underline inline-flex items-center"
+          href="/"
+          className="inline-flex items-center text-black hover:underline"
         >
           <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
           Back to Products

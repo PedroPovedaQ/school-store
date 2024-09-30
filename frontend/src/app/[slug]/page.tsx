@@ -16,8 +16,11 @@ const getData = async (slug: string) => {
         images: { fields: ["url"] },
       },
     };
-    const options = { headers: { Authorization: `Bearer ${token}` } };
-    const responseData = await fetchAPI(path, urlParamsObject, options);
+    const options = {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store", // Add this line
+    };
+    const responseData = await fetchAPI(path, urlParamsObject, options as any);
 
     return {
       data: responseData.data[0],

@@ -3,6 +3,7 @@ import { getStrapiMedia } from "./utils/api-helpers";
 import Link from "next/link";
 import CartSheet from "@/components/shop/CartSheet";
 import Image from "next/image";
+import UserValidationSheet from "@/components/UserValidationSheet";
 
 const getData = async () => {
   try {
@@ -60,42 +61,45 @@ function ProductCard({ product }: { product: any }) {
           )}
         </div>
         <h3 className="text-lg font-medium">{product.attributes.name}</h3>
-        <p className="text-gray-600">${product.attributes.price.toFixed(2)}</p>
+        <p className="text-gray-600">{product.attributes.price} Points</p>
       </div>
     </Link>
   );
 }
 
-export default async function Shop() {
+export default async function Home() {
   const { data } = await getData();
 
   return (
-    <div className="min-h-screen bg-white">
-      <header className="flex py-4 align-middle bg-gray-100 w-100">
-        <div className="container flex justify-between items-center px-4 mx-auto">
-          <h1 className="flex items-center text-3xl font-bold">
-            {/* <Image
-              src="/colorful-logo.png"
-              alt="School "
-              width={50}
-              height={50}
-              className="text-black"
-            /> */}
-            <span className="ml-2 font-bold text-gray-900 text-italic">
-              Shop
-            </span>
-          </h1>
-          <CartSheet />
-        </div>
-      </header>
-      <div className="container p-8">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {data.map((product: any) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+    <main className="flex flex-col justify-between items-center min-h-screen">
+      <UserValidationSheet />
+      <div className="w-full min-h-screen bg-white">
+        <header className="flex py-4 align-middle bg-gray-100 w-100">
+          <div className="container flex justify-between items-center px-4 mx-auto">
+            <h1 className="flex items-center text-3xl font-bold">
+              {/* <Image
+                src="/colorful-logo.png"
+                alt="School "
+                width={50}
+                height={50}
+                className="text-black"
+              /> */}
+              <span className="ml-2 font-bold text-gray-900 text-italic">
+                Shop
+              </span>
+            </h1>
+            <CartSheet />
+          </div>
+        </header>
+        <div className="container p-8">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {data.map((product: any) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

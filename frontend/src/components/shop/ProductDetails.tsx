@@ -10,6 +10,7 @@ import {
   faClock,
   faPlus,
   faMinus,
+  faExclamationTriangle,
 } from "@fortawesome/free-solid-svg-icons";
 import ReactMarkdown from "react-markdown";
 import toast from "react-hot-toast";
@@ -21,23 +22,25 @@ type ProductDetailsProps = {
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const { addToCart, openCart } = useCart();
-
+  const inventory = product.attributes.inventory;
+  console.log("Inventory:", inventory);
   const handleAddToCart = () => {
-    addToCart({
-      id: product.id,
-      name: product.attributes.name,
-      price: product.attributes.price,
-      quantity: quantity,
-      image:
-        getStrapiMedia(product.attributes.images.data[0].attributes.url) || "",
-    });
-    openCart(); // Open the cart after adding the item
-
-    // Show toast notification
-    toast.success(`${product.attributes.name} added to cart!`, {
-      duration: 3000,
-      position: "bottom-right",
-    });
+    if (inventory > 0) {
+      addToCart({
+        id: product.id,
+        name: product.attributes.name,
+        price: product.attributes.price,
+        quantity: quantity,
+        image:
+          getStrapiMedia(product.attributes.images.data[0].attributes.url) ||
+          "",
+      });
+      openCart();
+      toast.success(`${product.attributes.name} added to cart!`, {
+        duration: 3000,
+        position: "bottom-right",
+      });
+    }
   };
 
   // Custom components for markdown rendering
@@ -90,45 +93,64 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       <div>
         <h1 className="mb-4 text-3xl font-bold">{product.attributes.name}</h1>
         <p className="mb-4 text-2xl font-semibold">
-          ${product.attributes.price.toFixed(2)}
+          {product.attributes.price} Points
         </p>
-        <div className="mb-4">
-          <label
-            htmlFor="quantity"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Quantity:
-          </label>
-          <div className="flex gap-2 items-center mt-1">
+        {inventory > 0 && inventory < 5 && (
+          <p className="mb-2 font-semibold text-red-600">
+            <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2" />
+            Only {inventory} left!
+          </p>
+        )}
+        {inventory > 0 ? (
+          <>
+            <div className="mb-4">
+              <label
+                htmlFor="quantity"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Quantity:
+              </label>
+              <div className="flex gap-2 items-center mt-1">
+                <button
+                  className="p-1 text-gray-600 transition-colors hover:text-gray-800"
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  disabled={quantity <= 1}
+                >
+                  <FontAwesomeIcon icon={faMinus} />
+                </button>
+                <input
+                  type="number"
+                  id="quantity"
+                  name="quantity"
+                  min="1"
+                  max={inventory}
+                  value={quantity}
+                  onChange={(e) =>
+                    setQuantity(
+                      Math.min(inventory, Math.max(1, parseInt(e.target.value)))
+                    )
+                  }
+                  className="w-16 text-center border-b border-gray-300"
+                />
+                <button
+                  className="p-1 text-gray-600 transition-colors hover:text-gray-800"
+                  onClick={() => setQuantity(Math.min(inventory, quantity + 1))}
+                  disabled={quantity >= inventory}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                </button>
+              </div>
+            </div>
             <button
-              className="p-1 text-gray-600 transition-colors hover:text-gray-800"
-              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              className="px-4 py-2 w-full text-white bg-black rounded transition-colors hover:bg-gray-800"
+              onClick={handleAddToCart}
             >
-              <FontAwesomeIcon icon={faMinus} />
+              Add to cart →
             </button>
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              min="1"
-              value={quantity}
-              onChange={(e) => setQuantity(parseInt(e.target.value))}
-              className="w-16 text-center border-b border-gray-300"
-            />
-            <button
-              className="p-1 text-gray-600 transition-colors hover:text-gray-800"
-              onClick={() => setQuantity(quantity + 1)}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
-          </div>
-        </div>
-        <button
-          className="px-4 py-2 w-full text-white bg-black rounded transition-colors hover:bg-gray-800"
-          onClick={handleAddToCart}
-        >
-          Add to cart →
-        </button>
+          </>
+        ) : (
+          <p className="mb-4 text-xl font-semibold text-red-600">Sold Out</p>
+        )}
         <div className="mt-8">
           <h2 className="mb-2 text-xl font-semibold">Description</h2>
           <ReactMarkdown components={customComponents as any}>

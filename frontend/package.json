@@ -48,6 +48,8 @@
     "react-slideshow-image": "^4.3.0",
     "remark-gfm": "^4.0.0",
     "resend": "^4.0.0",
+    "sib-api-v3-sdk": "^8.5.0",
+    "sib-api-v3-typescript": "^2.2.2",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.4.2"

@@ -36,7 +36,7 @@ const MeditationPlayer = ({
     if ("mediaSession" in navigator) {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: title,
-        artist: "Marijuana Meditations", // Set this to a suitable value
+        artist: "Hero Store", // Set this to a suitable value
         album: "Meditation Sessions", // Set this to a suitable value
         artwork: [
           { src: "/bordered-logo.png", sizes: "512x512", type: "image/png" },

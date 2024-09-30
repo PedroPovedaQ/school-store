@@ -60,10 +60,10 @@ const CartSheet = () => {
                   />
                   <div className="flex-grow">
                     <h3 className="font-semibold">{item.name}</h3>
-                    <p>${item.price.toFixed(2)}</p>
-                    <div className="flex items-center mt-1 gap-2">
+                    <p>{item.price} Points</p>
+                    <div className="flex gap-2 items-center mt-1">
                       <button
-                        className="p-1 text-gray-600 hover:text-gray-800 transition-colors"
+                        className="p-1 text-gray-600 transition-colors hover:text-gray-800"
                         onClick={() =>
                           updateQuantity(
                             item.id,
@@ -83,7 +83,7 @@ const CartSheet = () => {
                         className="w-16 text-center border-b border-gray-300"
                       />
                       <button
-                        className="p-1 text-gray-600 hover:text-gray-800 transition-colors"
+                        className="p-1 text-gray-600 transition-colors hover:text-gray-800"
                         onClick={() =>
                           updateQuantity(item.id, item.quantity + 1)
                         }
@@ -101,21 +101,18 @@ const CartSheet = () => {
                 </div>
               ))}
               <div className="mt-4 font-semibold">
-                Total: ${totalPrice.toFixed(2)}
+                Total: {totalPrice} Points
               </div>
             </div>
           )}
         </div>
         <div className="mt-6">
           <Button
-            className="w-full bg-green-500 hover:bg-green-600 text-sm font-bold text-black  "
+            className="w-full text-sm font-bold text-black bg-green-500 hover:bg-green-600"
             asChild
             disabled={cart.length === 0}
           >
-            <Link
-              href="/shop/checkout"
-              className="bg-green-500 hover:bg-green-600"
-            >
+            <Link href="/checkout" className="bg-green-500 hover:bg-green-600">
               Proceed to Checkout
             </Link>
           </Button>

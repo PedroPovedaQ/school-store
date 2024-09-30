@@ -4,7 +4,6 @@ type OrderDetails = {
   formData: any;
   items: any[];
   subtotal: number;
-  shipping: number;
   total: number;
 };
 

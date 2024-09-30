@@ -1,3 +1,5 @@
+import { fetchAPI } from "./fetch-api";
+
 export function getStrapiURL(path = '') {
     return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337'}${path}`;
 }
@@ -24,3 +26,32 @@ export function formatDate(dateString: string) {
 
 // ADDS DELAY TO SIMULATE SLOW API REMOVE FOR PRODUCTION
 export const delay = (time: number) => new Promise((resolve) => setTimeout(() => resolve(1), time));
+
+export async function getGlobal(lang: string): Promise<any> {
+    const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
+  
+    if (!token)
+      throw new Error("The Strapi API Token environment variable is not set.");
+  
+    const path = `/global`;
+    const options = { headers: { Authorization: `Bearer ${token}` } };
+  
+    const urlParamsObject = {
+      populate: [
+        "metadata.shareImage",
+        "favicon",
+        "notificationBanner.link",
+        "navbar.links",
+        "navbar.navbarLogo.logoImg",
+        "footer.footerLogo.logoImg",
+        "footer.menuLinks",
+        "footer.legalLinks",
+        "footer.socialLinks",
+        "footer.categories",
+        "notificationEmails",
+      ],
+      locale: lang,
+    };
+    return await fetchAPI(path, urlParamsObject, options);
+  }
+  

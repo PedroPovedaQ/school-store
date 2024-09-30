@@ -13,7 +13,7 @@ export default function ConfirmationPage() {
   useEffect(() => {
     if (!orderDetails) {
       // Redirect to checkout if no order details are available
-      router.push("/shop/checkout");
+      router.push("/checkout");
     }
   }, [orderDetails, router]);
 
@@ -21,68 +21,52 @@ export default function ConfirmationPage() {
     return <div>Loading...</div>;
   }
 
-  const { formData, items, subtotal, shipping, total } = orderDetails;
+  const { formData, items, subtotal, total } = orderDetails;
 
   return (
     <div className="min-h-screen bg-white">
-      <main className="container mx-auto px-4 py-8 flex flex-col lg:flex-row">
-        <div className="w-full lg:w-2/3 lg:pr-8 mb-8 lg:mb-0">
-          <h1 className="text-2xl font-bold mb-6">Order Confirmation</h1>
+      <main className="container flex flex-col px-4 py-8 mx-auto lg:flex-row">
+        <div className="mb-8 w-full lg:w-2/3 lg:pr-8 lg:mb-0">
+          <h1 className="mb-6 text-2xl font-bold">Order Confirmation</h1>
 
           <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-4">
+            <h2 className="mb-4 text-xl font-semibold">
               Thank you for your order!
             </h2>
             <p className="mb-4">
               You should expect an email soon with further details.
             </p>
-            <h3 className="text-lg font-semibold mb-2">Order Details:</h3>
+            <h3 className="mb-2 text-lg font-semibold">Order Details:</h3>
             <p>
               Name: {formData.first_name} {formData.last_name}
             </p>
             <p>Email: {formData.email}</p>
-            <p>
-              Address: {formData.address}, {formData.apartment}
-            </p>
-            <p>
-              {formData.city}, {formData.state} {formData.zip_code}
-            </p>
           </div>
         </div>
 
-        <div className="w-full lg:w-1/3 bg-gray-100 p-4">
+        <div className="p-4 w-full bg-gray-100 lg:w-1/3">
           {items.map((item: any) => (
             <div key={item.id} className="flex items-center mb-4">
               <Image src={item.image} alt={item.name} width={60} height={60} />
-              <div className="ml-4 flex-grow">
+              <div className="flex-grow ml-4">
                 <h3 className="font-semibold">{item.name}</h3>
                 <p className="text-sm">Quantity: {item.quantity}</p>
               </div>
-              <span className="ml-2">
-                ${(item.price * item.quantity).toFixed(2)}
-              </span>
+              <span className="ml-2">{item.price * item.quantity} Points</span>
             </div>
           ))}
 
-          <div className="border-t pt-4">
-            <div className="flex justify-between mb-2">
-              <span>Subtotal</span>
-              <span>${subtotal.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between mb-2">
-              <span>Shipping</span>
-              <span className="text-sm">${shipping.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between font-semibold text-lg">
+          <div className="pt-4 border-t">
+            <div className="flex justify-between text-lg font-semibold">
               <span>Total</span>
-              <span>USD ${total.toFixed(2)}</span>
+              <span>{total} Points</span>
             </div>
           </div>
         </div>
       </main>
 
-      <footer className="container mx-auto px-4 py-8 text-center text-sm text-gray-500">
-        <div className="flex flex-wrap justify-center">
+      <footer className="container px-4 py-8 mx-auto text-sm text-center text-gray-500">
+        {/* <div className="flex flex-wrap justify-center">
           <Link href="/refund-policy" className="mr-4 mb-2">
             Refund policy
           </Link>
@@ -95,7 +79,7 @@ export default function ConfirmationPage() {
           <Link href="/terms-of-service" className="mb-2">
             Terms of service
           </Link>
-        </div>
+        </div> */}
       </footer>
     </div>
   );

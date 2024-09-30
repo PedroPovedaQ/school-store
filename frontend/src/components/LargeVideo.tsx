@@ -69,7 +69,7 @@ export default function LargeVideo({ data }: LargeVideoProps) {
             style={{ fontSize: `${fontSize}rem` }}
             className="fade-in font-bold text-center text-mj-gold tracking-widest md:tracking-[15px] sm:tracking-[9px] font-cormorant"
           >
-            Marijuana Meditations
+            Hero Store
           </h1>
         </div>
       </div>
