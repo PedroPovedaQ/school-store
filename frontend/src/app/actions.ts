@@ -83,7 +83,7 @@ export async function sendOrderNotification(
   try {
     console.log("Sending email to:", sendSmtpEmail.to);
     const data = await apiInstance.sendTransacEmail(sendSmtpEmail);
-    console.log("Email sent successfully:", data);
+    // console.log("Email sent successfully:", data);
     return { success: true, data };
   } catch (error) {
     return { success: false, error };

@@ -27,8 +27,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
     // Load state from localStorage on mount
     const storedEmail = localStorage.getItem("userEmail");
     const storedValidation = localStorage.getItem("userValidated");
-    console.log(storedValidation, "storedValidation");
-    console.log(storedEmail, "storedEmail");
     if (storedEmail) setEmail(storedEmail);
     if (storedValidation) setIsValidated(storedValidation === "true");
   }, []);
@@ -37,7 +35,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
     // Save state to localStorage whenever it changes
     localStorage.setItem("userEmail", email);
     localStorage.setItem("userValidated", isValidated.toString());
-    console.log(isValidated, "isValidated", email, "email");
   }, [email, isValidated]);
 
   return (

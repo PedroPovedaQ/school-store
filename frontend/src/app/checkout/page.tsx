@@ -15,12 +15,12 @@ import {
 } from "../actions";
 import ShopHeader from "@/components/shop/ShopHeader";
 import { useUser } from "@/contexts/UserContext"; // Add this import
+import { getStrapiMedia } from "@/utils/api-helpers";
 
 export default function CheckoutPage() {
   const { cart, clearCart } = useCart();
   const { setOrderDetails } = useOrder();
   const user = useUser(); // Add this line to get the user context
-  console.log(user, "user");
   const [formData, setFormData] = useState({
     email: user?.email || "", // Initialize email with user's email if available
     first_name: "",
@@ -101,8 +101,8 @@ export default function CheckoutPage() {
         total,
       });
 
-      clearCart();
       router.push("/checkout/confirmation");
+      clearCart();
     } catch (error) {
       console.error("Error processing order:", error);
       // TODO: Implement error handling
@@ -173,7 +173,12 @@ export default function CheckoutPage() {
         <div className="p-4 w-full bg-gray-100 lg:w-1/3">
           {cart.map((item: any) => (
             <div key={item.id} className="flex items-center mb-4">
-              <Image src={item.image} alt={item.name} width={60} height={60} />
+              <img
+                src={getStrapiMedia(item.image)}
+                alt={item.name}
+                width={60}
+                height={60}
+              />
               <div className="flex-grow ml-4">
                 <h3 className="font-semibold">{item.name}</h3>
                 <p className="text-sm">Quantity: {item.quantity}</p>
