@@ -38,7 +38,6 @@ const UserValidationSheet: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const isValid = await validateUser(email, password);
-    console.log(isValid, "isValid");
     if (isValid) {
       setIsValidated(true);
       setIsOpen(false);

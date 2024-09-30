@@ -72,6 +72,13 @@ export async function sendOrderNotification(
     ${itemsList}
     </div>
     <h2 style="color: green; margin: 0; padding: 0;">Total: ${total} Points</h2>
+  <h2 style="color: green; margin: 0; padding: 0;">View Order Details:</h2>
+  <p style="color: black; margin: 0; padding: 0;">
+    To view and manage this order, please visit:
+    <a href="https://school-store-production.up.railway.app/admin/content-manager/collection-types/api::order.order?page=1&pageSize=10&sort=createdAt:DESC">
+      Order Management Dashboard
+    </a>
+  </p>
   `;
 
   const sendSmtpEmail = new brevo.SendSmtpEmail();
