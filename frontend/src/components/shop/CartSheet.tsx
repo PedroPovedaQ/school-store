@@ -52,7 +52,7 @@ const CartSheet = () => {
             <div>
               {cart.map((item) => (
                 <div key={item.id} className="flex items-center mb-4">
-                  <Image
+                  <img
                     src={getStrapiMedia(item.image)}
                     alt={item.name}
                     width={50}
