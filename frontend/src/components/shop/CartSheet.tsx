@@ -32,7 +32,7 @@ const CartSheet = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">
+        <Button variant="outline" className="text-black bg-white">
           <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
           Cart ({totalItems})
         </Button>
@@ -108,11 +108,11 @@ const CartSheet = () => {
         </div>
         <div className="mt-6">
           <Button
-            className="w-full text-sm font-bold text-black bg-green-500 hover:bg-green-600"
+            className="w-full text-sm font-bold text-black"
             asChild
             disabled={cart.length === 0}
           >
-            <Link href="/checkout" className="bg-green-500 hover:bg-green-600">
+            <Link href="/checkout" className="text-white bg-black">
               Proceed to Checkout
             </Link>
           </Button>

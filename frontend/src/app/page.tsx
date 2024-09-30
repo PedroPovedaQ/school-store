@@ -74,18 +74,18 @@ export default async function Home() {
     <main className="flex flex-col justify-between items-center min-h-screen">
       <UserValidationSheet />
       <div className="w-full min-h-screen bg-white">
-        <header className="flex py-4 align-middle bg-gray-100 w-100">
+        <header className="flex py-4 align-middle bg-oakridge w-100">
           <div className="container flex justify-between items-center px-4 mx-auto">
             <h1 className="flex items-center text-3xl font-bold">
-              {/* <Image
-                src="/colorful-logo.png"
-                alt="School "
+              <Image
+                src="/asset-logo.png"
+                alt="Oak Ridge Pioneer Hero Store Logo"
                 width={50}
                 height={50}
                 className="text-black"
-              /> */}
-              <span className="ml-2 font-bold text-gray-900 text-italic">
-                Shop
+              />
+              <span className="ml-2 font-bold text-white text-italic">
+                Oak Ridge Pioneer Hero Store
               </span>
             </h1>
             <CartSheet />

@@ -4,6 +4,9 @@ module.exports = {
     content: [ "./src/**/*.{js,ts,jsx,tsx}" ], 
 	theme: {
     	extend: {
+			colors: {
+				oakridge: '#2c4122'
+			},
     		borderRadius: {
     			lg: 'var(--radius)',
     			md: 'calc(var(--radius) - 2px)',
