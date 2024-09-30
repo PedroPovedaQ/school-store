@@ -1,10 +1,10 @@
 'use server'
 
 import { getGlobal } from '@/utils/api-helpers';
-import * as SibApiV3Sdk from 'sib-api-v3-typescript';
+const brevo = require('@getbrevo/brevo');
 
-let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
-apiInstance.setApiKey(SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY || '');
+let apiInstance = new brevo.TransactionalEmailsApi();
+apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY || '');
 
 
 
@@ -27,7 +27,7 @@ export async function sendOrderConfirmation(email: string, cart: any[], subtotal
     <p style="color: black; margin: 0; padding: 0;">For any questions, please email <a href="mailto:erin.mantor@ocps.net">erin.mantor@ocps.net</a></p>
   `;
 
-  const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
+  const sendSmtpEmail = new brevo.SendSmtpEmail();
   sendSmtpEmail.to = [{ email: email }];
   sendSmtpEmail.sender = { email: "erin.mantor@ocps.net", name: "Oak Ridge Pioneer Hero Store" };
   sendSmtpEmail.subject = "Oak Ridge Pioneer Hero Store - Order Confirmation";
@@ -74,7 +74,7 @@ export async function sendOrderNotification(
     <h2 style="color: green; margin: 0; padding: 0;">Total: ${total} Points</h2>
   `;
 
-  const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
+  const sendSmtpEmail = new brevo.SendSmtpEmail();
   sendSmtpEmail.to = notificationEmails.map((email: { email: string }) => ({ email: email.email }));
   sendSmtpEmail.sender = { email: "erin.mantor@ocps.net", name: "Oak Ridge Pioneer Hero Store" };
   sendSmtpEmail.subject = "Oak Ridge Pioneer Hero Store - New Order Notification";

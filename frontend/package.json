@@ -13,6 +13,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@getbrevo/brevo": "^2.2.0",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
     "@radix-ui/react-checkbox": "^1.1.1",
@@ -47,9 +48,6 @@
     "react-markdown": "^9.0.1",
     "react-slideshow-image": "^4.3.0",
     "remark-gfm": "^4.0.0",
-    "resend": "^4.0.0",
-    "sib-api-v3-sdk": "^8.5.0",
-    "sib-api-v3-typescript": "^2.2.2",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.4.2"
