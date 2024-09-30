@@ -17,7 +17,7 @@ import ShopHeader from "@/components/shop/ShopHeader";
 import { useUser } from "@/contexts/UserContext"; // Add this import
 
 export default function CheckoutPage() {
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
   const { setOrderDetails } = useOrder();
   const user = useUser(); // Add this line to get the user context
   console.log(user, "user");
@@ -100,6 +100,8 @@ export default function CheckoutPage() {
         subtotal,
         total,
       });
+
+      clearCart();
       router.push("/checkout/confirmation");
     } catch (error) {
       console.error("Error processing order:", error);
