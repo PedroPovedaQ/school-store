@@ -17,8 +17,7 @@
       "relation": "oneToMany",
       "target": "api::order-item.order-item",
       "private": true,
-      "mappedBy": "product",
-      "visible": false
+      "mappedBy": "product"
     },
     "name": {
       "type": "string"

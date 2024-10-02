@@ -14,6 +14,7 @@ module.exports = {
         throw new Error('Email and password are required');
       }
       const { cart_items } = data;
+      console.log("cart_items", cart_items);
   
       if (cart_items && Array.isArray(cart_items)) {
         // Check inventory for all items

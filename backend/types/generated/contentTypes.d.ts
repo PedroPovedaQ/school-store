@@ -963,6 +963,7 @@ export interface ApiOrderItemOrderItem extends Schema.CollectionType {
     singularName: 'order-item';
     pluralName: 'order-items';
     displayName: 'Order Item';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -975,6 +976,11 @@ export interface ApiOrderItemOrderItem extends Schema.CollectionType {
       'api::order.order'
     >;
     display_name: Attribute.String & Attribute.Private;
+    product: Attribute.Relation<
+      'api::order-item.order-item',
+      'manyToOne',
+      'api::product.product'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
