@@ -2,6 +2,17 @@ module.exports = {
     async beforeCreate(event) {
       console.log("Before create Order:", event);
       const { data } = event.params;
+      // Check if email and password are correct
+      if (data.email && data.password) {
+        if (!(data.email.endsWith('@students.ocps.net') || data.email.endsWith('@ocps.net'))|| data.password !== 'Hero123') {
+          throw new Error('Invalid email or password');
+        }
+        // Remove email and password from data
+        delete data.email;
+        delete data.password;
+      } else {
+        throw new Error('Email and password are required');
+      }
       const { cart_items } = data;
   
       if (cart_items && Array.isArray(cart_items)) {
