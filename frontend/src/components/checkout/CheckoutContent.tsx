@@ -25,28 +25,6 @@ export default function CheckoutContent() {
   const [orderError, setOrderError] = useState<string | null>(null);
   const router = useRouter();
 
-  if (cart.length === 0) {
-    return (
-      <div className="min-h-screen bg-white">
-        <ShopHeader showCart={false} />
-        <main className="container flex flex-col justify-center items-center px-4 py-8 mx-auto">
-          <h1 className="mb-4 text-2xl font-bold text-red-600">
-            Your cart is empty
-          </h1>
-          <p className="mb-6 text-gray-600">
-            Add some items to your cart before proceeding to checkout.
-          </p>
-          <Link
-            href="/"
-            className="px-6 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
-          >
-            Return to Homepage
-          </Link>
-        </main>
-      </div>
-    );
-  }
-
   const subtotal = cart.reduce(
     (total: number, item: any) => total + item.price * item.quantity,
     0
@@ -109,6 +87,28 @@ export default function CheckoutContent() {
       setIsProcessing(false);
     }
   };
+
+  if (cart.length === 0 && !isProcessing) {
+    return (
+      <div className="min-h-screen bg-white">
+        <ShopHeader showCart={false} />
+        <main className="container flex flex-col justify-center items-center px-4 py-8 mx-auto">
+          <h1 className="mb-4 text-2xl font-bold text-red-600">
+            Your cart is empty
+          </h1>
+          <p className="mb-6 text-gray-600">
+            Add some items to your cart before proceeding to checkout.
+          </p>
+          <Link
+            href="/"
+            className="px-6 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
+          >
+            Return to Homepage
+          </Link>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">

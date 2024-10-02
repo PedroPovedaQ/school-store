@@ -47,7 +47,7 @@ export default function ConfirmationPage() {
         <div className="p-4 w-full bg-gray-100 lg:w-1/3">
           {items.map((item: any) => (
             <div key={item.id} className="flex items-center mb-4">
-              <Image src={item.image} alt={item.name} width={60} height={60} />
+              <img src={item.image} alt={item.name} width={60} height={60} />
               <div className="flex-grow ml-4">
                 <h3 className="font-semibold">{item.name}</h3>
                 <p className="text-sm">Quantity: {item.quantity}</p>
