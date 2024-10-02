@@ -84,7 +84,10 @@ export default function CheckoutContent() {
       console.error("Error processing order:", error);
       setOrderError("Error Processing Order");
     } finally {
-      setIsProcessing(false);
+      setTimeout(() => {
+        // hacky fix to prevent the page from showing cart empty
+        setIsProcessing(false);
+      }, 0);
     }
   };
 
