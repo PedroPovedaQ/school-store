@@ -18,8 +18,11 @@ export default function CheckoutContent() {
     email: user?.email || "",
     first_name: "",
     last_name: "",
+    student_id: "",
+    password: "",
   });
   const [isProcessing, setIsProcessing] = useState(false);
+  const [orderError, setOrderError] = useState<string | null>(null);
   const router = useRouter();
 
   if (cart.length === 0) {
@@ -58,11 +61,15 @@ export default function CheckoutContent() {
   };
 
   const isFormValid =
-    formData.first_name.trim() !== "" && formData.last_name.trim() !== "";
+    formData.first_name.trim() !== "" &&
+    formData.last_name.trim() !== "" &&
+    formData.student_id.trim() !== "" &&
+    formData.password.trim() !== "";
 
   const handleConfirmOrder = async () => {
     if (isProcessing) return;
     setIsProcessing(true);
+    setOrderError(null);
 
     try {
       // Create order in Strapi
@@ -97,7 +104,7 @@ export default function CheckoutContent() {
       clearCart();
     } catch (error) {
       console.error("Error processing order:", error);
-      // TODO: Implement error handling
+      setOrderError("Error Processing Order");
     } finally {
       setIsProcessing(false);
     }
@@ -119,14 +126,13 @@ export default function CheckoutContent() {
               value={formData.email}
               onChange={handleInputChange}
               placeholder="Email"
-              className="p-2 w-full bg-gray-100 rounded border transition-colors duration-300 cursor-not-allowed hover:bg-gray-200"
-              disabled={true}
+              className="p-2 w-full rounded border transition-colors duration-300"
             />
           </div>
 
           {/* Name section */}
           <div className="mb-6">
-            <h2 className="mb-4 text-xl font-semibold">Name</h2>
+            <h2 className="mb-4 text-xl font-semibold">Student Information</h2>
             <div className="flex gap-4">
               <input
                 type="text"
@@ -147,6 +153,30 @@ export default function CheckoutContent() {
                 required
               />
             </div>
+            <div className="flex gap-4 pr-2 mt-4 w-1/2">
+              <input
+                type="text"
+                name="student_id"
+                value={formData.student_id}
+                onChange={handleInputChange}
+                placeholder="Student ID"
+                className="p-2 w-full bg-white rounded border"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <h2 className="mb-4 text-xl font-semibold">Password</h2>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              placeholder="Password"
+              className="p-2 w-full bg-white rounded border"
+              required
+            />
           </div>
 
           <button
@@ -160,6 +190,10 @@ export default function CheckoutContent() {
           >
             {isProcessing ? "Processing..." : "Confirm Order"}
           </button>
+
+          {orderError && (
+            <p className="mt-2 text-center text-red-600">{orderError}</p>
+          )}
         </div>
 
         <div className="p-4 w-full bg-gray-100 lg:w-1/3">

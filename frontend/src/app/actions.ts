@@ -102,6 +102,8 @@ export async function createOrder(
     email: string;
     first_name: string;
     last_name: string;
+    student_id: string;
+    password: string;
     // ... other form fields ...
   },
   cart: any[],
@@ -117,6 +119,8 @@ export async function createOrder(
       body: JSON.stringify({
         data: {
           email: formData.email,
+          student_id: formData.student_id,
+          password: formData.password,
           first_name: formData.first_name,
           last_name: formData.last_name,
           total,
