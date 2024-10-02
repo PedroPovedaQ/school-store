@@ -7,11 +7,11 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useState, useMemo } from "react";
 
 // Helper function to get unique categories
-const getUniqueCategories = (products: any[]) => {
-  const categories = products.map(
-    (product) => product.attributes.category.data.attributes.Name
+const getUniqueCategories = (products: any[]): string[] => {
+  const categorySet = new Set(
+    products.map((product) => product.attributes.category.data.attributes.Name)
   );
-  return ["All", ...new Set(categories)];
+  return ["All", ...Array.from(categorySet)];
 };
 
 export default function MainContent({ data }: { data: any[] }) {
