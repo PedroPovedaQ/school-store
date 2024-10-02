@@ -827,6 +827,41 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCategoryCategory extends Schema.CollectionType {
+  collectionName: 'categories';
+  info: {
+    singularName: 'category';
+    pluralName: 'categories';
+    displayName: 'Category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Name: Attribute.String;
+    products: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::product.product'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGlobalGlobal extends Schema.SingleType {
   collectionName: 'globals';
   info: {
@@ -903,6 +938,7 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     >;
     order_items_display: Attribute.Text & Attribute.Private;
     processed: Attribute.Boolean & Attribute.DefaultTo<false>;
+    student_id: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -933,11 +969,6 @@ export interface ApiOrderItemOrderItem extends Schema.CollectionType {
   };
   attributes: {
     quantity: Attribute.Integer;
-    product: Attribute.Relation<
-      'api::order-item.order-item',
-      'manyToOne',
-      'api::product.product'
-    >;
     order: Attribute.Relation<
       'api::order-item.order-item',
       'manyToOne',
@@ -974,18 +1005,23 @@ export interface ApiProductProduct extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
-    description: Attribute.Blocks;
-    price: Attribute.Decimal;
-    images: Attribute.Media<'images', true>;
-    inventory: Attribute.Integer;
-    slug: Attribute.String;
     order_items: Attribute.Relation<
       'api::product.product',
       'oneToMany',
       'api::order-item.order-item'
     > &
       Attribute.Private;
+    name: Attribute.String;
+    description: Attribute.Blocks;
+    price: Attribute.Decimal;
+    images: Attribute.Media<'images', true>;
+    inventory: Attribute.Integer;
+    slug: Attribute.String;
+    category: Attribute.Relation<
+      'api::product.product',
+      'manyToOne',
+      'api::category.category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1023,6 +1059,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::category.category': ApiCategoryCategory;
       'api::global.global': ApiGlobalGlobal;
       'api::order.order': ApiOrderOrder;
       'api::order-item.order-item': ApiOrderItemOrderItem;

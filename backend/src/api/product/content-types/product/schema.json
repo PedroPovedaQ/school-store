@@ -12,6 +12,14 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "order_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order-item.order-item",
+      "private": true,
+      "mappedBy": "product",
+      "visible": false
+    },
     "name": {
       "type": "string"
     },
@@ -35,13 +43,11 @@
     "slug": {
       "type": "string"
     },
-    "order_items": {
+    "category": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::order-item.order-item",
-      "private": true,
-      "mappedBy": "product",
-      "visible": false
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "products"
     }
   }
 }

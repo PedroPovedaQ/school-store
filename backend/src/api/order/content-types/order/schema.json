@@ -37,6 +37,9 @@
     "processed": {
       "type": "boolean",
       "default": false
+    },
+    "student_id": {
+      "type": "string"
     }
   }
 }
