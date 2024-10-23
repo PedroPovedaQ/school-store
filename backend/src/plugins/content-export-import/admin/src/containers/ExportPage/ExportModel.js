@@ -29,6 +29,7 @@ const ExportModel = ({model}) => {
   };
 
   const download = () => {
+    console.log("content", content);
     const current = new Date();
     const filename = `${model.apiID}-${current.getTime()}`
     if (format === "csv") {

@@ -21,6 +21,7 @@ const ExportPage = () => {
     }
     loadContentTypes();
   }, []);
+  console.log("models", models);
 
   return (
     <div>

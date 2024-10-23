@@ -76,6 +76,20 @@ export interface SharedMedia extends Schema.Component {
   };
 }
 
+export interface MetaMetadata extends Schema.Component {
+  collectionName: 'components_meta_metadata';
+  info: {
+    name: 'Metadata';
+    displayName: 'Metadata';
+    icon: 'robot';
+    description: '';
+  };
+  attributes: {
+    metaTitle: Attribute.String & Attribute.Required;
+    metaDescription: Attribute.Text & Attribute.Required;
+  };
+}
+
 export interface SectionsTestimonialsGroup extends Schema.Component {
   collectionName: 'components_slices_testimonials_groups';
   info: {
@@ -227,20 +241,6 @@ export interface SectionsBottomActions extends Schema.Component {
   };
 }
 
-export interface MetaMetadata extends Schema.Component {
-  collectionName: 'components_meta_metadata';
-  info: {
-    name: 'Metadata';
-    displayName: 'Metadata';
-    icon: 'robot';
-    description: '';
-  };
-  attributes: {
-    metaTitle: Attribute.String & Attribute.Required;
-    metaDescription: Attribute.Text & Attribute.Required;
-  };
-}
-
 export interface LinksSocialLink extends Schema.Component {
   collectionName: 'components_links_social_links';
   info: {
@@ -339,6 +339,18 @@ export interface LayoutFooter extends Schema.Component {
     menuLinks: Attribute.Component<'links.link', true>;
     legalLinks: Attribute.Component<'links.link', true>;
     socialLinks: Attribute.Component<'links.social-link', true>;
+  };
+}
+
+export interface TextlistEmails extends Schema.Component {
+  collectionName: 'components_textlist_emails';
+  info: {
+    displayName: 'Emails';
+    icon: 'envelop';
+    description: '';
+  };
+  attributes: {
+    email: Attribute.Email;
   };
 }
 
@@ -465,18 +477,6 @@ export interface ElementsFeatureColumn extends Schema.Component {
   };
 }
 
-export interface TextlistEmails extends Schema.Component {
-  collectionName: 'components_textlist_emails';
-  info: {
-    displayName: 'Emails';
-    icon: 'envelop';
-    description: '';
-  };
-  attributes: {
-    email: Attribute.Email;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -486,6 +486,7 @@ declare module '@strapi/types' {
       'shared.rich-text': SharedRichText;
       'shared.quote': SharedQuote;
       'shared.media': SharedMedia;
+      'meta.metadata': MetaMetadata;
       'sections.testimonials-group': SectionsTestimonialsGroup;
       'sections.rich-text': SectionsRichText;
       'sections.pricing': SectionsPricing;
@@ -497,7 +498,6 @@ declare module '@strapi/types' {
       'sections.feature-rows-group': SectionsFeatureRowsGroup;
       'sections.feature-columns-group': SectionsFeatureColumnsGroup;
       'sections.bottom-actions': SectionsBottomActions;
-      'meta.metadata': MetaMetadata;
       'links.social-link': LinksSocialLink;
       'links.link': LinksLink;
       'links.button': LinksButton;
@@ -505,6 +505,7 @@ declare module '@strapi/types' {
       'layout.navbar': LayoutNavbar;
       'layout.logo': LayoutLogo;
       'layout.footer': LayoutFooter;
+      'textlist.emails': TextlistEmails;
       'elements.testimonial': ElementsTestimonial;
       'elements.plan': ElementsPlan;
       'elements.notification-banner': ElementsNotificationBanner;
@@ -513,7 +514,6 @@ declare module '@strapi/types' {
       'elements.feature': ElementsFeature;
       'elements.feature-row': ElementsFeatureRow;
       'elements.feature-column': ElementsFeatureColumn;
-      'textlist.emails': TextlistEmails;
     }
   }
 }

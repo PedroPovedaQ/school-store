@@ -15,15 +15,17 @@ module.exports = {
       const { cart_items } = data;
       console.log("Data before processing:", event.params.data);
       console.log("cart_items", cart_items);
+      const productCollection = {};
   
       if (cart_items && Array.isArray(cart_items)) {
         // Check inventory for all items
         for (const item of cart_items) {
           console.log("Checking inventory for item:", item);
           const product = await strapi.entityService.findOne('api::product.product', item.id, {
-            fields: ['id', 'name', 'inventory'],
+            fields: ['id', 'name', 'inventory', 'price'],
           });
           console.log("Product found:", product);
+          productCollection[product.id] = product;
   
           if (!product) {
             throw new Error(`Product with id ${item.id} not found`);
@@ -33,7 +35,8 @@ module.exports = {
             throw new Error(`Not enough inventory for product: ${product.name}. Requested: ${item.quantity}, Available: ${product.quantity}`);
           }
         }
-  
+        
+        console.log("productCollection", productCollection);
         // If we've made it here, we have enough inventory for all items
         const orderItems = [];
         for (const item of cart_items) {
@@ -43,6 +46,7 @@ module.exports = {
               data: {
                 quantity: item.quantity,
                 product: item.id,
+                price: productCollection[item.id].price * item.quantity,
               },
             });
             console.log("Order item created:", orderItem);

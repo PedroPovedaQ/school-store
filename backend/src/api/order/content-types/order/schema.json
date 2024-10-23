@@ -30,10 +30,6 @@
       "target": "api::order-item.order-item",
       "mappedBy": "order"
     },
-    "order_items_display": {
-      "type": "text",
-      "private": true
-    },
     "processed": {
       "type": "boolean",
       "default": false

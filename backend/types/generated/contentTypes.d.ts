@@ -936,7 +936,6 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       'oneToMany',
       'api::order-item.order-item'
     >;
-    order_items_display: Attribute.Text & Attribute.Private;
     processed: Attribute.Boolean & Attribute.DefaultTo<false>;
     student_id: Attribute.String;
     createdAt: Attribute.DateTime;
@@ -970,6 +969,7 @@ export interface ApiOrderItemOrderItem extends Schema.CollectionType {
   };
   attributes: {
     quantity: Attribute.Integer;
+    price: Attribute.Integer;
     order: Attribute.Relation<
       'api::order-item.order-item',
       'manyToOne',

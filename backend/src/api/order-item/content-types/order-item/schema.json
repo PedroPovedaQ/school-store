@@ -15,6 +15,9 @@
     "quantity": {
       "type": "integer"
     },
+    "price": {
+      "type": "integer"
+    },
     "order": {
       "type": "relation",
       "relation": "manyToOne",
