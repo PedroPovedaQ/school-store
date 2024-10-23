@@ -26,14 +26,8 @@ export const convertToCsv = (data) => {
         .map(k => removeNewLines(order[k]));
       
       order.order_items.forEach((item, index) => {
-        const lineItemTotal = (parseFloat(item.price) * parseInt(item.quantity)).toFixed(2);
         const sanitizedItemName = removeNewLines(item.display_name).split('- Quantity')[0];
-        // if index is 0, add the base order data, otherwise add empty strings for the order specific keys
-        // count the number of order specific keys
-        // create orderSpecificKeys array
-        const orderSpecificKeys = keys.filter(k => k !== "product_name" && k !== "product_price" && k !== "product_quantity" && k !== "product_total");
-        const orderSpecificKeysCount = orderSpecificKeys.length;
-        
+
         const rowData = [
           ...(index === 0 ? baseOrderData : baseOrderData.map((datum, index) => index == 0 ? datum : '')),
           sanitizedItemName,
