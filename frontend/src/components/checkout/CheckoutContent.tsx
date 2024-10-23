@@ -79,7 +79,9 @@ export default function CheckoutContent() {
       });
 
       router.push("/checkout/confirmation");
-      clearCart();
+      setTimeout(() => {
+        clearCart();
+      }, 1000);
     } catch (error) {
       console.error("Error processing order:", error);
       setOrderError("Error Processing Order");
@@ -87,7 +89,7 @@ export default function CheckoutContent() {
       setTimeout(() => {
         // hacky fix to prevent the page from showing cart empty
         setIsProcessing(false);
-      }, 0);
+      }, 1000);
     }
   };
 

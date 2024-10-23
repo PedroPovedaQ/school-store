@@ -102,7 +102,7 @@ Next we need to switch to our `/frontend` directory and create our `.env` file a
 
 ```bash
 NEXT_PUBLIC_STRAPI_API_TOKEN=your-api-token
-NEXT_PUBLIC_PAGE_LIMIT=6
+# NEXT_PUBLIC_PAGE_LIMIT=6
 NEXT_PUBLIC_STRAPI_FORM_SUBMISSION_TOKEN=your-form-submission-token
 NEXT_PUBLIC_STRAPI_API_URL=http://localhost:1337
 

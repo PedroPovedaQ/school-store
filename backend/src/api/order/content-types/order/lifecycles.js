@@ -8,12 +8,12 @@ module.exports = {
           throw new Error('Invalid email or password');
         }
         // Remove email and password from data
-        delete data.email;
         delete data.password;
       } else {
         throw new Error('Email and password are required');
       }
       const { cart_items } = data;
+      console.log("Data before processing:", event.params.data);
       console.log("cart_items", cart_items);
   
       if (cart_items && Array.isArray(cart_items)) {
@@ -56,7 +56,7 @@ module.exports = {
         data.order_items = orderItems;
         console.log("Order items:", orderItems);
         // Remove cart_items from the data as we've processed it
-        data.cart_items = undefined;
+        delete data.cart_items
       }
       console.log("Data after processing:", event.params.data);
     },

@@ -110,6 +110,10 @@ export async function createOrder(
   total: number
 ) {
   try {
+    console.log("Creating order in Strapi");
+    console.log("Form data:", formData);
+    console.log("Cart:", cart);
+    console.log("Total:", total);
     const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/orders`, {
       method: 'POST',
       headers: {

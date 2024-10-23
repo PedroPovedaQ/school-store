@@ -1,17 +1,5 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface TextlistEmails extends Schema.Component {
-  collectionName: 'components_textlist_emails';
-  info: {
-    displayName: 'Emails';
-    icon: 'envelop';
-    description: '';
-  };
-  attributes: {
-    email: Attribute.Email;
-  };
-}
-
 export interface SharedVideoEmbed extends Schema.Component {
   collectionName: 'components_sections_video_embeds';
   info: {
@@ -477,10 +465,21 @@ export interface ElementsFeatureColumn extends Schema.Component {
   };
 }
 
+export interface TextlistEmails extends Schema.Component {
+  collectionName: 'components_textlist_emails';
+  info: {
+    displayName: 'Emails';
+    icon: 'envelop';
+    description: '';
+  };
+  attributes: {
+    email: Attribute.Email;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'textlist.emails': TextlistEmails;
       'shared.video-embed': SharedVideoEmbed;
       'shared.slider': SharedSlider;
       'shared.seo': SharedSeo;
@@ -514,6 +513,7 @@ declare module '@strapi/types' {
       'elements.feature': ElementsFeature;
       'elements.feature-row': ElementsFeatureRow;
       'elements.feature-column': ElementsFeatureColumn;
+      'textlist.emails': TextlistEmails;
     }
   }
 }
