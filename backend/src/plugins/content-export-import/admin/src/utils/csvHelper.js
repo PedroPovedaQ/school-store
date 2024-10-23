@@ -37,9 +37,9 @@ export const convertToCsv = (data) => {
         const rowData = [
           ...(index === 0 ? baseOrderData : baseOrderData.map((datum, index) => index == 0 ? datum : '')),
           sanitizedItemName,
-          item.price,
+          item.price/parseInt(item.quantity),
           item.quantity,
-          lineItemTotal
+          item.price
         ];
         csvRows.push(rowData.join(VALUE_DELIMITER));
       });
